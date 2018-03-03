@@ -5,20 +5,22 @@
     <meta charset="utf-8">
     <style>
       @import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
-      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
-      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+      @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 
       body {
         color: white;
-        font-family: 'Droid Serif';
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 1.5em;
+        text-shadow: 0 0 2px rgba(0,0,0,.5);
       }
       h1, h2, h3 {
         color: #fff647;
         font-family: 'Permanent Marker', cursive;
         font-weight: normal;
-        text-shadow: 0 0 0.35em black;
+        text-shadow: 0 0 0.35em rgba(0,0,0,.85);
       }
-      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code, .remark-inline-code { font-family: 'Inconsolata', monospace; }
       .remark-slide-content {
         background: radial-gradient(#943e66, #592b7d)
       }
@@ -41,7 +43,13 @@ class: center, middle
 
 ---
 
-# Introduction
+# Berörda ämnen
+      
+```javascript
+test(('do you jest') => {
+  expect(thou).toBe('cool');
+});
+```
 
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
