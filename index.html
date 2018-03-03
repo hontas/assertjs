@@ -38,18 +38,57 @@
 class: center, middle
 
 # Best of Assert(js)
+### 21-22 feb 2018, Sant Antonio, Texas
 
 ---
 
-# Agenda
-
-1. Berörda ämnen
-2. Bästa presentationerna
-3. Att ta med sig
-
+# Workshopdagen
+> Kent C Dodds (paypal) och Brian Mann (cypress.io)
+   
+1. Vad är ett test
+2. DIY test framework
+3. unit, integration, e2e
+4. cypress.io
+      
 ---
 
-# Berörda ämnen
+# DIY test framework
+      
+```javascript
+function test(message, callback) {
+  try {
+      callback();
+      console.log('✅', message);
+  } catch (e) {
+      console.log('❌', message, e);
+  }
+}
+```
+      
+---
+      
+# Konferensen
+
+Talare:
+
+---
+   
+# Test[pyramid|låda|dorito|pokal]en
+      
+---
+      
+
+# Rekommenderade presentationer
+      
+1. Aaron Abramov
+2. Kent C Dodds
+3. Justin Searls
+4. Ryan Marsh
+5. Trent Willis
+      
+---
+      
+# Att ta med sig
       
 ```javascript
 test(('do you jest') => {
