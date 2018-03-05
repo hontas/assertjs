@@ -17,6 +17,14 @@
         font-weight: normal;
         text-shadow: 0 0 0.35em black;
       }
+      .remark-slide-content a,
+      .remark-slide-content a:hover,
+      .remark-slide-content a:link,
+      .remark-slide-content a:visited,
+      .remark-slide-content a:active {
+        color: #fff647;
+        text-decoration: none;
+      }
       .remark-code, .remark-inline-code {
         font-family: 'Inconsolata', monospace;
         font-size: 20px;
@@ -26,6 +34,12 @@
         color: white;
         font-size: 1.5em;
         text-shadow: 0 0 4px rgba(0,0,0,.75);
+      }
+      .remark-slide-content img {
+        width: 100%;
+      }
+      .remark-notes-preview {
+        color: gray;
       }
       .hljs-tomorrow-night-eighties .hljs {
         background: rgba(39, 40, 34, .7);
@@ -40,22 +54,44 @@ class: center, middle
 # Best of Assert(js)
 ### 21-22 feb 2018, Sant Antonio, Texas
 
+???
+https://www.facebook.com/pontahontas/videos/vb.591510341/10155826202380342/?type=3
+
 ---
 
 # Workshopdagen
 
-Kent C Dodds (paypal) och Brian Mann (cypress.io)
-   
-1. Vad är ett test
-2. DIY test framework
-3. unit, integration, e2e
-4. cypress.io
+Kent C Dodds och Brian Mann
+
+http://slides.com/kentcdodds/testing-principles
+https://github.com/kentcdodds/testing-workshop
+
+1. DIY test framework
+2. Code coverage
+3. cypress.io
+
+unit, integration, e2e
+
+???
+**unit**: mocked all dependencies  
+**integration**: when not mocking dependencies  
+**e2e**: when test is acting like real user  
+
+**CONFIDENCE**
       
 ---
 
 # DIY test framework
       
 ```javascript
+const expect = (value) = ({
+  toBe(expected) {
+    if (!Object.is(value, expected)) {
+      throw Error(`${expected}` does not equal ${value});
+    }
+  }
+})
+
 function test(message, callback) {
   try {
       callback();
@@ -65,16 +101,107 @@ function test(message, callback) {
   }
 }
 ```
-      
+
+???
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+
 ---
-      
+# Code coverage
+
+[Instrumenterad kod](https://raw.githubusercontent.com/kentcdodds/testing-workshop/master/other/coverage-example/example.coverage.js):
+
+```javascript
+cov_4v2lelsd = {...}; // metadata + mini db
+
+function findParent(finder, node, rootNode) {
+  cov_4v2lelsd.f[2]++;
+  cov_4v2lelsd.s[2]++;
+
+  if ((cov_4v2lelsd.b[2][0]++, node !== null) &&
+      (cov_4v2lelsd.b[2][1]++, node !== rootNode.parentNode)) {
+    cov_4v2lelsd.b[1][0]++;
+    cov_4v2lelsd.s[3]++;
+  }
+  // ...
+}
+```
+
+???
+**Hur mycket ska vi ha?**  
+100% coverage for biblotek ? för applikation, mindre viktigt  
+
+,-operatorn, return whatever is to the right
+
+**f** = function?  
+**s** = statement?  
+**b** = branch (if-else)  
+---
+
+# Exempel
+
+```javascript
+test('getUser returns the specific user', async () => {
+  // arrange / given
+  const testUser = await db.insertUser(generate.userData())
+  const {res, req} = setup()
+  req.params = {id: testUser.id}
+
+  // act / when
+  await usersController.getUser(req, res)
+
+  // assert / then
+  expect(res.json).toHaveBeenCalledTimes(1)
+  const firstCall = res.json.mock.calls[0]
+  const firstArg = firstCall[0]
+  const {user} = firstArg
+  expect(user).toEqual(safeUser(testUser))
+  const userFromDb = await db.getUser(user.id)
+  expect(userFromDb).toEqual(testUser)
+});
+```
+
+???
+Tests should communicate purpose, use named variables like goodUserProps / badUserProps for this
+
+Avoid putting too much logic in your test use testdata helpers with randomly generated
+
+How many assertions / test? Why? With Jest it's ok to do different
+
+---
+
+# Cypress.io
+
+### DEMO
+
+???
+
+- inside out - ok men hur? (skiljer sig från selenium, puppeteer, web driver)
+- basically wraps sinon, lolex and chai
+- every command has implicit timeouts
+- asynchronity is abstracted away
+- console.log, debugger it all Works
+- control the network with server and route
+
+---
+class: center, middle
+
 # Konferensen
 
-Talare:
+![@rauchg](thetweet.png)
+
+---
+
+# Genomgående ämnen:
+
+## CONFIDENCE
+### the tweet, finding sweet spot
 
 ---
    
-# Test[pyramid|låda|dorito|pokal]en
+# Glebs pyramid
+# AArons låda
+# Doriton
+# Kents pokal
       
 ---
       
@@ -99,7 +226,7 @@ test(('do you jest') => {
 ```
 
     </textarea>
-    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    <script src="remark-latest.min.js">
     </script>
     <script>
       var slideshow = remark.create({
