@@ -36,7 +36,8 @@
         text-shadow: 0 0 4px rgba(0,0,0,.75);
       }
       .remark-slide-content img {
-        width: 100%;
+        max-width: 100%;
+        max-height: 60vh;
       }
       .remark-notes-preview {
         color: gray;
@@ -54,6 +55,8 @@ class: center, middle
 # Best of Assert(js)
 ### 21-22 feb 2018, Sant Antonio, Texas
 
+https://hontas.github.io/assertjs
+
 ???
 https://www.facebook.com/pontahontas/videos/vb.591510341/10155826202380342/?type=3
 
@@ -61,7 +64,7 @@ https://www.facebook.com/pontahontas/videos/vb.591510341/10155826202380342/?type
 
 # Workshopdagen
 
-Kent C Dodds och Brian Mann
+Kent C Dodds (och Brian Mann)
 
 http://slides.com/kentcdodds/testing-principles
 https://github.com/kentcdodds/testing-workshop
@@ -73,31 +76,32 @@ https://github.com/kentcdodds/testing-workshop
 unit, integration, e2e
 
 ???
+BECAUSE: **CONFIDENCE**  
+
 **unit**: mocked all dependencies  
 **integration**: when not mocking dependencies  
 **e2e**: when test is acting like real user  
-
-**CONFIDENCE**
       
 ---
 
 # DIY test framework
       
 ```javascript
-const expect = (value) = ({
+const expect = (actual) = ({
   toBe(expected) {
-    if (!Object.is(value, expected)) {
-      throw Error(`${expected}` does not equal ${value});
+    if (!Object.is(actual, expected)) {
+      throw Error(`${expected}` does not equal ${actual});
     }
   }
 })
 
-function test(message, callback) {
+function test(title, testFn) {
   try {
-      callback();
-      console.log('✅', message);
-  } catch (e) {
-      console.log('❌', message, e);
+      testFn();
+      console.log('✓', title);
+  } catch (error) {
+      console.error('✕', title);
+      console.error(error);
   }
 }
 ```
@@ -128,7 +132,7 @@ function findParent(finder, node, rootNode) {
 
 ???
 **Hur mycket ska vi ha?**  
-100% coverage for biblotek ? för applikation, mindre viktigt  
+100% coverage for biblotek (och reducers) ? för applikation, mindre viktigt  
 
 ,-operatorn, return whatever is to the right
 
@@ -190,40 +194,48 @@ class: center, middle
 ![@rauchg](thetweet.png)
 
 ---
+class: center
 
-# Genomgående ämnen:
-
-## CONFIDENCE
-### the tweet, finding sweet spot
-
----
-   
 # Glebs pyramid
-# AArons låda
-# Doriton
-# Kents pokal
-      
----
-      
 
-# Rekommenderade presentationer
+---
+class: center
+
+# Aarons låda
+
+---
+class: center
+
+# Doriton
+
+![testing dorito](dorito.png)
+
+---
+class: center
+
+# Kents pokal
+
+![testing trophy](trophy.png)
       
-1. Aaron Abramov
-2. Kent C Dodds
-3. Justin Searls
-4. Ryan Marsh
-5. Trent Willis
-6. Gleb Bahmutov & Brian Mann
+---
+# Rekommenderade
+
+- [Justin Searls](https://www.youtube.com/watch?v=Af4M8GMoxi4) (725 slides)
+- [Ryan Marsh](https://www.youtube.com/watch?v=L3rHsE-nA78) (cucumber)
+- [Brian Mann](https://www.youtube.com/watch?v=5XQOK0v_YRE) & [Gleb Bahmutov](https://www.youtube.com/watch?v=5FnalKRjpZk) (cypress.io)
+- [Kent C Dodds](https://www.youtube.com/watch?v=Fha2bVoC8SE) (tweet)
+- [Aaron Abramov](https://youtu.be/_pnW-JjmyXE) (facebook)
+- [Trent Willis](https://www.youtube.com/watch?v=4PYBE-c53-M) (netflix)
+
+[Hela spellistan på youtube](https://www.youtube.com/watch?v=zqdCM8zR6Mc&list=PLZ66c9_z3umNSrKSb5cmpxdXZcIPNvKGw)
       
 ---
       
-# Att ta med sig
+# Kommande luncher
       
-```javascript
-test(('do you jest') => {
-  expect(thou).toBe('cool');
-});
-```
+- Ämnen
+- Datum
+- Annat
 
     </textarea>
     <script src="remark-latest.min.js">
